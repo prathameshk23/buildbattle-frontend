@@ -109,6 +109,7 @@ class OnboardingSummaryScreen extends ConsumerWidget {
               label: 'Start tracking',
               icon: LucideIcons.sparkles,
               onPressed: () async {
+                await ref.read(onboardingProvider.notifier).saveToBackend();
                 await ref.read(authProvider.notifier).completeOnboarding();
                 if (context.mounted) context.go('/home/dashboard');
               },

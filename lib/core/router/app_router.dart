@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../auth/auth_storage_keys.dart';
 import '../../features/auth/screens/login_screen.dart';
 import '../../features/auth/screens/register_screen.dart';
 import '../../features/dashboard/screens/dashboard_screen.dart';
@@ -21,7 +22,7 @@ final appRouter = GoRouter(
     if (path == '/splash') return null;
 
     const storage = FlutterSecureStorage();
-    final token = await storage.read(key: 'accessToken');
+    final token = await storage.read(key: AuthStorageKeys.accessToken);
     final prefs = await SharedPreferences.getInstance();
     final onboardingComplete = prefs.getBool('onboardingComplete') ?? false;
     final hasToken = token != null && token.isNotEmpty;

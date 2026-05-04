@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
+import '../../../core/network/api_endpoints.dart';
+import '../../../core/network/dio_client.dart';
 import '../../../shared/models/goals.dart';
 import '../../../shared/models/user_profile.dart';
 
@@ -60,6 +63,47 @@ class OnboardingNotifier extends Notifier<UserProfile> {
       proteinGoal: 150,
       carbGoal: 230,
       fatGoal: 65,
+    );
+  }
+
+  Future<void> saveToBackend() async {
+    final dio = ref.read(dioClientProvider).dio;
+    await dio.put(
+      ApiEndpoints.profile,
+      data: {
+        'display_name': state.name,
+        'age': state.age,
+        'sex': state.sex.toLowerCase() == 'female' ? 'female' : 'male',
+        'height_cm': state.heightCm,
+        'weight_kg': state.weightKg,
+        'activity_level': switch (state.activityLevel.toLowerCase()) {
+          'light' || 'lightly active' => 'lightly_active',
+          'active' => 'very_active',
+          'athlete' => 'extra_active',
+          'very active' => 'very_active',
+          'extra active' => 'extra_active',
+          'moderate' || 'moderately active' => 'moderately_active',
+          _ => 'sedentary',
+        },
+        'goal_type': switch (state.goalType) {
+          GoalType.weightGain => 'weight_gain',
+          GoalType.maintenance => 'maintenance',
+          _ => 'weight_loss',
+        },
+      },
+    );
+    await dio.put(
+      ApiEndpoints.goals,
+      data: {
+        'target_weight_kg': state.targetWeightKg,
+        'target_date': DateFormat('yyyy-MM-dd').format(state.targetDate),
+        'daily_kcal': state.calorieGoal,
+        'protein_g': state.proteinGoal,
+        'carbs_g': state.carbGoal,
+        'fat_g': state.fatGoal,
+        'water_ml': state.waterGoalMl,
+        'steps': state.stepGoal,
+      },
     );
   }
 }

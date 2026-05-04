@@ -17,8 +17,11 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profile = ref.watch(profileProvider);
-    return ListView(
+    final profileAsync = ref.watch(profileProvider);
+    return profileAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Center(child: Text(error.toString())),
+      data: (profile) => ListView(
       padding: const EdgeInsets.all(20),
       children: [
         Center(
@@ -62,7 +65,7 @@ class ProfileScreen extends ConsumerWidget {
             children: [
               Text('Account', style: AppTextStyles.displaySub),
               const SizedBox(height: 8),
-              Text(profile.email, style: AppTextStyles.caption),
+              Text('Signed in with email/password', style: AppTextStyles.caption),
               const SizedBox(height: 14),
               AppButton(
                 label: 'Sign out',
@@ -77,6 +80,7 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ),
       ].animate(interval: 50.ms).fadeIn(duration: 300.ms).slideY(begin: 0.06),
+      ),
     );
   }
 

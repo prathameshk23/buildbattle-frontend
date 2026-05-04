@@ -6,7 +6,12 @@ class ApiEndpoints {
   static const refresh = '/auth/refresh';
   static const goals = '/goals';
   static const diary = '/diary';
-  static const dashboard = '/dashboard';
-  static const progress = '/progress';
+  static const water = '/water';
+  static const steps = '/steps';
+  static const foodSearch = '/food/search';
+  static const foodScan = '/food/scan';
+  static String foodBarcode(String barcode) => '/food/barcode/$barcode';
+  static const progressSummary = '/progress/summary';
+  static const weightHistory = '/progress/weight-history';
   static const profile = '/profile';
 }

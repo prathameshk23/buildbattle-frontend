@@ -41,21 +41,31 @@ class DiaryScreen extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 12),
-        ...meals.map(
-          (meal) => Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: MealSectionCard(
-              meal: meal,
-              entries: entries.where((entry) => entry.meal == meal).toList(),
-              onAdd: () => showModalBottomSheet<void>(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: AppColors.backgroundElevated,
-                builder: (_) => AddFoodScreen(meal: meal),
-              ),
-              onDelete: ref.read(diaryProvider.notifier).remove,
+        ...entries.when(
+          loading: () => const [Center(child: CircularProgressIndicator())],
+          error: (error, _) => [
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Text(error.toString()),
             ),
-          ),
+          ],
+          data: (items) => meals.map(
+            (meal) => Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: MealSectionCard(
+                meal: meal,
+                entries: items.where((entry) => entry.meal == meal).toList(),
+                onAdd: () => showModalBottomSheet<void>(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: AppColors.backgroundElevated,
+                  builder: (_) => AddFoodScreen(meal: meal),
+                ),
+                onDelete: (entry) =>
+                    ref.read(diaryProvider.notifier).remove(entry),
+              ),
+            ),
+          ).toList(),
         ),
       ].animate(interval: 50.ms).fadeIn(duration: 300.ms).slideY(begin: 0.06),
     );

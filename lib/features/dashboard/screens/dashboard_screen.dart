@@ -25,7 +25,7 @@ class DashboardScreen extends ConsumerWidget {
       data: (data) => ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          const DailyGreetingHeader(name: 'Grace'),
+          DailyGreetingHeader(name: data.name),
           const SizedBox(height: 18),
           CalorieRingCard(
             eaten: data.calories,

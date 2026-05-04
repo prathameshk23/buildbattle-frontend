@@ -17,8 +17,9 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _email = TextEditingController(text: 'grace@example.com');
-  final _password = TextEditingController(text: 'password123');
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+  bool _busy = false;
 
   @override
   Widget build(BuildContext context) {
@@ -63,21 +64,32 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             const SizedBox(height: 24),
             AppButton(
-              label: 'Sign in',
+              label: _busy ? 'Signing in' : 'Sign in',
               icon: LucideIcons.logIn,
-              onPressed: () async {
+              onPressed: _busy ? null : () async {
                 if (!_formKey.currentState!.validate()) return;
-                await ref
-                    .read(authProvider.notifier)
-                    .login(email: _email.text, password: _password.text);
-                if (context.mounted) context.go('/home/dashboard');
+                setState(() => _busy = true);
+                try {
+                  await ref
+                      .read(authProvider.notifier)
+                      .login(email: _email.text, password: _password.text);
+                  if (context.mounted) context.go('/home/dashboard');
+                } catch (error) {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(error.toString())));
+                  }
+                } finally {
+                  if (mounted) setState(() => _busy = false);
+                }
               },
             ),
             const SizedBox(height: 12),
             AppButton(
               label: 'Create account',
               variant: AppButtonVariant.ghost,
-              onPressed: () => context.go('/onboarding/name'),
+              onPressed: () => context.go('/auth/register'),
             ),
           ],
         ),

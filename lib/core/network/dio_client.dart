@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../auth/auth_storage_keys.dart';
 import '../config/env.dart';
 import 'api_endpoints.dart';
 
@@ -24,6 +26,8 @@ class DioClient {
   final FlutterSecureStorage _storage;
 }
 
+final dioClientProvider = Provider<DioClient>((ref) => DioClient());
+
 class AuthInterceptor extends Interceptor {
   AuthInterceptor({required this.dio, required FlutterSecureStorage storage})
     : _storage = storage;
@@ -36,8 +40,9 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final token = await _storage.read(key: 'accessToken');
-    if (token != null && token.isNotEmpty) {
+    final token = await _storage.read(key: AuthStorageKeys.accessToken);
+    final isAuthRoute = options.path.startsWith('/auth/');
+    if (!isAuthRoute && token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
     }
     handler.next(options);
@@ -45,26 +50,41 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
+    if (err.requestOptions.path == ApiEndpoints.refresh) {
+      handler.next(err);
+      return;
+    }
     if (err.response?.statusCode == 401 &&
         err.requestOptions.extra['retried'] != true) {
-      final refreshToken = await _storage.read(key: 'refreshToken');
+      final refreshToken = await _storage.read(key: AuthStorageKeys.refreshToken);
       if (refreshToken != null) {
         try {
           final response = await dio.post(
             ApiEndpoints.refresh,
-            data: {'refreshToken': refreshToken},
+            data: {'refresh_token': refreshToken},
+            options: Options(extra: {'retried': true}),
           );
-          final token = response.data['accessToken'] as String?;
+          final body = response.data['data'] as Map<String, dynamic>?;
+          final token = body?['access_token'] as String?;
+          final nextRefreshToken = body?['refresh_token'] as String?;
           if (token != null) {
-            await _storage.write(key: 'accessToken', value: token);
+            await _storage.write(key: AuthStorageKeys.accessToken, value: token);
+            if (nextRefreshToken != null) {
+              await _storage.write(
+                key: AuthStorageKeys.refreshToken,
+                value: nextRefreshToken,
+              );
+            }
             final request = err.requestOptions..extra['retried'] = true;
             request.headers['Authorization'] = 'Bearer $token';
             handler.resolve(await dio.fetch(request));
             return;
           }
         } catch (_) {
-          await _storage.delete(key: 'accessToken');
-          await _storage.delete(key: 'refreshToken');
+          await _storage.delete(key: AuthStorageKeys.accessToken);
+          await _storage.delete(key: AuthStorageKeys.refreshToken);
+          await _storage.delete(key: AuthStorageKeys.legacyAccessToken);
+          await _storage.delete(key: AuthStorageKeys.legacyRefreshToken);
         }
       }
     }
@@ -73,7 +93,8 @@ class AuthInterceptor extends Interceptor {
         requestOptions: err.requestOptions,
         response: err.response,
         error: AppException(
-          err.response?.data?['message']?.toString() ??
+          err.response?.data?['error']?['message']?.toString() ??
+              err.response?.data?['message']?.toString() ??
               err.message ??
               'Network request failed',
           statusCode: err.response?.statusCode,

@@ -18,7 +18,7 @@ class AppTheme {
         tertiary: AppColors.accentGold,
         error: AppColors.error,
       ),
-      textTheme: GoogleFonts.nunitoTextTheme(base.textTheme).apply(
+      textTheme: GoogleFonts.interTextTheme(base.textTheme).apply(
         bodyColor: AppColors.textPrimary,
         displayColor: AppColors.textPrimary,
       ),

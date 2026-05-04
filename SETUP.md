@@ -2,10 +2,12 @@
 
 ## Prerequisites
 
-- Flutter SDK 3.19 or newer
-- Dart 3.3 or newer
+- Flutter SDK matching `pubspec.yaml` (`sdk: ^3.11.5`)
+- Dart from that Flutter SDK
 - Android Studio for Android builds
 - Xcode and CocoaPods for iOS builds
+- Backend running at `http://localhost:3000`
+- LM Studio running only if you want AI food photo scan
 
 ## Clone & Install
 
@@ -17,11 +19,27 @@ flutter pub get
 
 ## Environment Config
 
-The app reads the backend URL from `lib/core/config/env.dart`. For local development, either edit the default value there or pass it at runtime:
+The app reads the backend URL from `lib/core/config/env.dart`. Pass it at runtime:
 
 ```sh
 flutter run --dart-define=API_BASE_URL=http://localhost:3000
 ```
+
+Android emulator cannot reach your laptop through `localhost`. Use:
+
+```sh
+flutter run --dart-define=API_BASE_URL=http://10.0.2.2:3000
+```
+
+iOS simulator can usually use `http://localhost:3000`.
+
+## Auth
+
+The app now uses real email/password auth through backend `POST /auth/login` and `POST /auth/register`. For development, disable Supabase email confirmation or confirm the user before signing in.
+
+## Food Scan
+
+Diary > add food > camera tab sends selected photo bytes to backend `POST /food/scan`. Backend forwards the image to LM Studio. Use a vision-capable local model in LM Studio.
 
 ## Code Generation
 

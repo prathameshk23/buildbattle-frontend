@@ -2,6 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/auth/auth_storage_keys.dart';
+import '../../../core/network/api_endpoints.dart';
+import '../../../core/network/dio_client.dart';
+
 class AuthState {
   const AuthState({this.token, this.onboardingComplete = false});
 
@@ -32,7 +36,11 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   @override
   Future<AuthState> build() async {
     final prefs = await SharedPreferences.getInstance();
-    final token = await _storage.read(key: 'accessToken');
+    final token = await _storage.read(key: AuthStorageKeys.accessToken);
+    if (token == null) {
+      await _storage.delete(key: AuthStorageKeys.legacyAccessToken);
+      await _storage.delete(key: AuthStorageKeys.legacyRefreshToken);
+    }
     return AuthState(
       token: token,
       onboardingComplete: prefs.getBool('onboardingComplete') ?? false,
@@ -40,30 +48,63 @@ class AuthNotifier extends AsyncNotifier<AuthState> {
   }
 
   Future<void> login({required String email, required String password}) async {
-    await _storage.write(key: 'accessToken', value: 'mock-access-token');
-    await _storage.write(key: 'refreshToken', value: 'mock-refresh-token');
+    final dio = ref.read(dioClientProvider).dio;
+    final response = await dio.post(
+      ApiEndpoints.login,
+      data: {'email': email.trim(), 'password': password},
+    );
+    final data = response.data['data'] as Map<String, dynamic>;
+    final accessToken = data['access_token'] as String;
+    final refreshToken = data['refresh_token'] as String;
+    await _storage.write(key: AuthStorageKeys.accessToken, value: accessToken);
+    await _storage.write(key: AuthStorageKeys.refreshToken, value: refreshToken);
     final prefs = await SharedPreferences.getInstance();
     state = AsyncData(
       AuthState(
-        token: 'mock-access-token',
+        token: accessToken,
         onboardingComplete: prefs.getBool('onboardingComplete') ?? false,
       ),
     );
   }
 
+  Future<void> register({
+    required String email,
+    required String password,
+    required String displayName,
+  }) async {
+    final dio = ref.read(dioClientProvider).dio;
+    final response = await dio.post(
+      ApiEndpoints.register,
+      data: {
+        'email': email.trim(),
+        'password': password,
+        if (displayName.trim().isNotEmpty) 'display_name': displayName.trim(),
+      },
+    );
+    final data = response.data['data'] as Map<String, dynamic>;
+    final session = data['session'] as Map<String, dynamic>?;
+    final accessToken = session?['access_token'] as String?;
+    final refreshToken = session?['refresh_token'] as String?;
+    if (accessToken == null || refreshToken == null) {
+      throw const AppException('Account created. Confirm email, then sign in.');
+    }
+    await _storage.write(key: AuthStorageKeys.accessToken, value: accessToken);
+    await _storage.write(key: AuthStorageKeys.refreshToken, value: refreshToken);
+    state = AsyncData(AuthState(token: accessToken));
+  }
+
   Future<void> completeOnboarding() async {
-    await _storage.write(key: 'accessToken', value: 'mock-access-token');
-    await _storage.write(key: 'refreshToken', value: 'mock-refresh-token');
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('onboardingComplete', true);
-    state = const AsyncData(
-      AuthState(token: 'mock-access-token', onboardingComplete: true),
-    );
+    final token = await _storage.read(key: AuthStorageKeys.accessToken);
+    state = AsyncData(AuthState(token: token, onboardingComplete: true));
   }
 
   Future<void> signOut() async {
-    await _storage.delete(key: 'accessToken');
-    await _storage.delete(key: 'refreshToken');
+    await _storage.delete(key: AuthStorageKeys.accessToken);
+    await _storage.delete(key: AuthStorageKeys.refreshToken);
+    await _storage.delete(key: AuthStorageKeys.legacyAccessToken);
+    await _storage.delete(key: AuthStorageKeys.legacyRefreshToken);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('onboardingComplete', false);
     state = const AsyncData(AuthState());
