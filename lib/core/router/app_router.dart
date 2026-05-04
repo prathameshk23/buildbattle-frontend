@@ -108,11 +108,11 @@ class HomeShell extends StatelessWidget {
       body: SafeArea(child: child),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: AppColors.backgroundPanel,
-          border: const Border(top: BorderSide(color: AppColors.borderSubtle)),
+          color: AppColors.backgroundCard,
+          border: const Border(top: BorderSide(color: AppColors.borderLight)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.glowSaber,
+              color: AppColors.shadowButton,
               blurRadius: index == -1 ? 0 : 10,
             ),
           ],

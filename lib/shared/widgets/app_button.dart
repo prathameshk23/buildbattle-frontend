@@ -34,54 +34,45 @@ class _AppButtonState extends State<AppButton> {
     final isDanger = widget.variant == AppButtonVariant.danger;
     final isGhost = widget.variant == AppButtonVariant.ghost;
     final foreground = isDanger
-        ? AppColors.accentRed
+        ? AppColors.error
         : isGhost
-        ? AppColors.textSecondary
+        ? AppColors.textLink
         : isPrimary
-        ? AppColors.accentSaber
-        : AppColors.textPrimary;
+        ? AppColors.textOnPrimary
+        : AppColors.primaryViolet;
     final border = isPrimary
-        ? AppColors.accentSaber
+        ? Colors.transparent
         : isDanger
-        ? AppColors.accentRed
+        ? AppColors.error
         : isGhost
         ? Colors.transparent
-        : AppColors.borderSubtle;
-    final fill = isGhost || isDanger
+        : AppColors.primaryViolet;
+    final fill = isGhost || isDanger || isPrimary
         ? Colors.transparent
-        : isPrimary
-        ? AppColors.backgroundPanel
-        : AppColors.backgroundElevated;
+        : AppColors.backgroundCard;
 
     return Listener(
       onPointerDown: (_) => setState(() => _pressed = true),
       onPointerCancel: (_) => setState(() => _pressed = false),
       onPointerUp: (_) => setState(() => _pressed = false),
       child: AnimatedScale(
-        scale: _pressed ? 0.96 : 1,
-        duration: const Duration(milliseconds: 100),
+        scale: _pressed ? 0.97 : 1,
+        duration: const Duration(milliseconds: 120),
         child: SizedBox(
           height: 52,
           width: widget.fullWidth ? double.infinity : null,
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: fill,
-              gradient: isPrimary
-                  ? LinearGradient(
-                      colors: [
-                        AppColors.accentSaber.withValues(alpha: 0.12),
-                        fill,
-                      ],
-                    )
-                  : null,
-              borderRadius: BorderRadius.circular(14),
+              gradient: isPrimary ? AppColors.gradientCta : null,
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(color: border, width: isPrimary ? 1.5 : 1),
-              boxShadow: isPrimary && _pressed
+              boxShadow: isPrimary
                   ? [
                       BoxShadow(
-                        color: AppColors.glowSaber,
-                        blurRadius: 18,
-                        spreadRadius: 1,
+                        color: AppColors.shadowButton,
+                        offset: const Offset(0, 6),
+                        blurRadius: 20,
                       ),
                     ]
                   : null,
@@ -96,7 +87,7 @@ class _AppButtonState extends State<AppButton> {
                 foregroundColor: foreground,
                 textStyle: AppTextStyles.labelStrong,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),

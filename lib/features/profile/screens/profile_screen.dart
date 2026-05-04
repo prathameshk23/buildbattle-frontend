@@ -35,9 +35,9 @@ class ProfileScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               Text(profile.name, style: AppTextStyles.displaySub),
               Text(
-                profile.goalType.mission,
+                profile.goalType.planLabel,
                 style: AppTextStyles.caption.copyWith(
-                  color: AppColors.accentStraw,
+                  color: AppColors.accentGold,
                 ),
               ),
             ],
@@ -84,7 +84,7 @@ class ProfileScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: PanelCard(
-        leftBorderAccent: AppColors.accentStraw,
+        leftBorderAccent: AppColors.accentGold,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

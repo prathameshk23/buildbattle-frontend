@@ -8,5 +8,5 @@ extension GoalTypeLabel on GoalType {
     GoalType.maintenance => 'Maintenance',
   };
 
-  String get mission => '$title Mission';
+  String get planLabel => '$title Plan';
 }

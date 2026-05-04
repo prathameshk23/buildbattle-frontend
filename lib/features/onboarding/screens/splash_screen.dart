@@ -48,11 +48,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: AppColors.accentSaber,
+                          color: AppColors.primaryViolet,
                           width: 1.5,
                         ),
                         boxShadow: [
-                          BoxShadow(color: AppColors.glowSaber, blurRadius: 28),
+                          BoxShadow(
+                            color: AppColors.shadowButton,
+                            blurRadius: 28,
+                          ),
                         ],
                       ),
                     )
@@ -64,15 +67,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                     )
                     .fadeOut(duration: 1600.ms),
                 const Icon(
-                  LucideIcons.compass,
-                  color: AppColors.accentSaber,
+                  LucideIcons.heartPulse,
+                  color: AppColors.primaryViolet,
                   size: 64,
                 ),
                 const Positioned(
                   bottom: 22,
                   child: Icon(
-                    LucideIcons.swords,
-                    color: AppColors.accentStraw,
+                    LucideIcons.activity,
+                    color: AppColors.accentCyan,
                     size: 28,
                   ),
                 ),
@@ -80,7 +83,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
             ).animate().fadeIn(duration: 500.ms).slideY(begin: 0.08),
             const SizedBox(height: 28),
             Text(
-              'Your journey. Your power.',
+              'Your health, clearly tracked.',
               style: AppTextStyles.displayHero,
               textAlign: TextAlign.center,
             ),

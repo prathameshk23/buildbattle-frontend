@@ -14,7 +14,7 @@ class FoodEntryTile extends StatelessWidget {
     return Dismissible(
       key: ValueKey('${entry.meal}${entry.food.name}'),
       background: Container(
-        color: AppColors.accentRed,
+        color: AppColors.error,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 16),
         child: const Icon(Icons.delete),

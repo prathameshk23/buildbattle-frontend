@@ -3,7 +3,7 @@ import '../../../shared/models/food_item.dart';
 const sampleFoods = [
   FoodItem(
     name: 'Protein oats',
-    brand: 'Galley',
+    brand: 'Kitchen',
     kcal: 420,
     protein: 31,
     carbs: 52,
@@ -11,7 +11,7 @@ const sampleFoods = [
   ),
   FoodItem(
     name: 'Grilled chicken rice',
-    brand: 'Sunny',
+    brand: 'Kitchen',
     kcal: 610,
     protein: 48,
     carbs: 76,

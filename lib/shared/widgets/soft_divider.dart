@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_colors.dart';
 
-class SaberDivider extends StatelessWidget {
-  const SaberDivider({super.key});
+class SoftDivider extends StatelessWidget {
+  const SoftDivider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +13,11 @@ class SaberDivider extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             Colors.transparent,
-            AppColors.accentSaber,
+            AppColors.primaryViolet,
             Colors.transparent,
           ],
         ),
-        boxShadow: [BoxShadow(color: AppColors.glowSaber, blurRadius: 10)],
+        boxShadow: [BoxShadow(color: AppColors.shadowButton, blurRadius: 10)],
       ),
     );
   }

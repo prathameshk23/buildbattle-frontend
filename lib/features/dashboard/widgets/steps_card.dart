@@ -31,8 +31,8 @@ class StepsCard extends StatelessWidget {
             child: LinearProgressIndicator(
               value: (steps / goal).clamp(0, 1),
               minHeight: 9,
-              color: AppColors.accentForce,
-              backgroundColor: AppColors.borderSubtle,
+              color: AppColors.accentTeal,
+              backgroundColor: AppColors.borderLight,
             ),
           ),
           const SizedBox(height: 10),

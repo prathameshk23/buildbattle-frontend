@@ -11,12 +11,12 @@ class LoadingShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: AppColors.backgroundPanel,
+      baseColor: AppColors.backgroundCard,
       highlightColor: AppColors.backgroundElevated,
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          color: AppColors.backgroundPanel,
+          color: AppColors.backgroundCard,
           borderRadius: BorderRadius.circular(16),
         ),
       ),

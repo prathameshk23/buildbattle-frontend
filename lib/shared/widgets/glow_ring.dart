@@ -12,8 +12,8 @@ class GlowRing extends StatelessWidget {
     required this.size,
     required this.label,
     required this.sublabel,
-    this.trackColor = AppColors.borderSubtle,
-    this.arcColor = AppColors.accentSaber,
+    this.trackColor = AppColors.borderLight,
+    this.arcColor = AppColors.primaryViolet,
     this.glowColor,
     this.strokeWidth = 14,
   });

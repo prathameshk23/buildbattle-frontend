@@ -33,8 +33,8 @@ class DiaryScreen extends ConsumerWidget {
               child: ChoiceChip(
                 selected: index == 3,
                 label: Text(index == 3 ? 'Today' : '${index - 3}d'),
-                selectedColor: AppColors.accentSaber.withValues(alpha: 0.22),
-                backgroundColor: AppColors.backgroundPanel,
+                selectedColor: AppColors.primaryViolet.withValues(alpha: 0.22),
+                backgroundColor: AppColors.backgroundCard,
                 onSelected: (_) {},
               ),
             ),

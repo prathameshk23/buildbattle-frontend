@@ -14,29 +14,24 @@ class OnboardingStepIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(totalSteps, (index) {
-        final completed = index < currentStep;
-        final active = index == currentStep;
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 240),
-          margin: const EdgeInsets.symmetric(horizontal: 5),
-          width: active ? 28 : 10,
-          height: 10,
-          decoration: BoxDecoration(
-            color: completed
-                ? AppColors.accentStraw
-                : active
-                ? AppColors.accentSaber
-                : AppColors.borderSubtle,
-            borderRadius: BorderRadius.circular(999),
-            boxShadow: active
-                ? [BoxShadow(color: AppColors.glowSaber, blurRadius: 14)]
-                : null,
-          ),
-        );
-      }),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Row(
+        children: List.generate(totalSteps, (index) {
+          final filled = index <= currentStep;
+          return Expanded(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: 4,
+              margin: EdgeInsets.only(right: index == totalSteps - 1 ? 0 : 4),
+              decoration: BoxDecoration(
+                color: filled ? AppColors.stepActive : AppColors.stepInactive,
+                borderRadius: BorderRadius.circular(999),
+              ),
+            ),
+          );
+        }),
+      ),
     );
   }
 }

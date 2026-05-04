@@ -1,13 +1,7 @@
-const starWarsInspiredQuotes = [
-  'Focus turns effort into force.',
-  'Discipline is the path through the dark.',
-  'Trust the training, then move.',
-  'Small choices become a stronger order.',
-];
-
-const onePieceInspiredQuotes = [
-  'A crew gets stronger one meal at a time.',
-  'Set the course and sail through it.',
-  'Today is another island on the map.',
-  'Your will is the wind. Keep going.',
+const motivationalQuotes = [
+  'Small choices add up to meaningful progress.',
+  'Stay consistent and let the data guide you.',
+  'Your next healthy decision starts now.',
+  'Fuel well, move often, recover fully.',
+  'Almost there. Keep hydrated.',
 ];

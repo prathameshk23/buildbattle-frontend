@@ -13,8 +13,8 @@ class DiaryNotifier extends Notifier<List<DiaryEntry>> {
     DiaryEntry(
       meal: 'Breakfast',
       food: FoodItem(
-        name: 'Blue milk protein oats',
-        brand: 'Galley',
+        name: 'Protein oats',
+        brand: 'Kitchen',
         kcal: 420,
         protein: 31,
         carbs: 52,
@@ -25,7 +25,7 @@ class DiaryNotifier extends Notifier<List<DiaryEntry>> {
     DiaryEntry(
       meal: 'Lunch',
       food: FoodItem(
-        name: 'Sunny grilled chicken rice',
+        name: 'Grilled chicken rice',
         brand: 'Recent',
         kcal: 610,
         protein: 48,

@@ -25,7 +25,7 @@ class WeightChart extends StatelessWidget {
                 LineChartData(
                   gridData: FlGridData(
                     getDrawingHorizontalLine: (_) => const FlLine(
-                      color: AppColors.borderSubtle,
+                      color: AppColors.borderLight,
                       strokeWidth: 1,
                     ),
                   ),
@@ -35,7 +35,7 @@ class WeightChart extends StatelessWidget {
                     horizontalLines: [
                       HorizontalLine(
                         y: target,
-                        color: AppColors.accentForce,
+                        color: AppColors.accentTeal,
                         dashArray: [6, 4],
                       ),
                     ],
@@ -46,13 +46,13 @@ class WeightChart extends StatelessWidget {
                         for (var i = 0; i < weights.length; i++)
                           FlSpot(i.toDouble(), weights[i]),
                       ],
-                      color: AppColors.accentSaber,
+                      color: AppColors.primaryViolet,
                       barWidth: 3,
                       dotData: FlDotData(
                         show: true,
                         getDotPainter: (spot, percent, bar, index) =>
                             FlDotCirclePainter(
-                              color: AppColors.accentStraw,
+                              color: AppColors.accentGold,
                               radius: 4,
                             ),
                       ),

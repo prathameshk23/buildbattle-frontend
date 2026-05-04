@@ -19,7 +19,7 @@ class BiometricInputTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PanelCard(
-      leftBorderAccent: AppColors.accentStraw,
+      leftBorderAccent: AppColors.accentGold,
       child: Row(
         children: [
           Expanded(

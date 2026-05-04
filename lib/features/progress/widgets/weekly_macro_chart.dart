@@ -28,7 +28,7 @@ class WeeklyMacroChart extends StatelessWidget {
                     horizontalLines: [
                       HorizontalLine(
                         y: 95,
-                        color: AppColors.accentRed,
+                        color: AppColors.error,
                         strokeWidth: 1,
                       ),
                     ],
@@ -40,17 +40,17 @@ class WeeklyMacroChart extends StatelessWidget {
                       barRods: [
                         BarChartRodData(
                           toY: 45 + i.toDouble() * 2,
-                          color: AppColors.accentSaber,
+                          color: AppColors.primaryViolet,
                           width: 5,
                         ),
                         BarChartRodData(
                           toY: 68 - i.toDouble(),
-                          color: AppColors.accentStraw,
+                          color: AppColors.accentGold,
                           width: 5,
                         ),
                         BarChartRodData(
                           toY: 34 + i.toDouble(),
-                          color: AppColors.accentForce,
+                          color: AppColors.accentTeal,
                           width: 5,
                         ),
                       ],

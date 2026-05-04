@@ -16,7 +16,7 @@ class BarcodeScannerSheet extends StatelessWidget {
           child: Container(
             height: 2,
             margin: const EdgeInsets.symmetric(horizontal: 36),
-            color: AppColors.accentSaber,
+            color: AppColors.primaryViolet,
           ),
         ),
       ],

@@ -11,10 +11,10 @@ class StreakBadgeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final badges = [
-      ('Padawan Logger', true),
-      ('Nakama Fuel', true),
-      ('Jedi Discipline', false),
-      ('King of the Pirates', false),
+      ('Consistent Logger', true),
+      ('Balanced Meals', true),
+      ('Goal Streak', false),
+      ('Target Reached', false),
     ];
     return SizedBox(
       height: 128,
@@ -31,7 +31,7 @@ class StreakBadgeRow extends StatelessWidget {
                 children: [
                   Icon(
                     LucideIcons.award,
-                    color: earned ? AppColors.accentStraw : AppColors.textMuted,
+                    color: earned ? AppColors.accentGold : AppColors.textMuted,
                   ),
                   const Spacer(),
                   Text(

@@ -24,9 +24,9 @@ class MacroBarCard extends StatelessWidget {
         children: [
           Text('Macros', style: AppTextStyles.displaySub),
           const SizedBox(height: 14),
-          _bar('P', protein, 150, AppColors.accentSaber),
-          _bar('C', carbs, 230, AppColors.accentStraw),
-          _bar('F', fat, 65, AppColors.accentForce),
+          _bar('P', protein, 150, AppColors.primaryViolet),
+          _bar('C', carbs, 230, AppColors.accentGold),
+          _bar('F', fat, 65, AppColors.accentTeal),
         ],
       ),
     );
@@ -46,7 +46,7 @@ class MacroBarCard extends StatelessWidget {
                 minHeight: 10,
                 value: (value / goal).clamp(0, 1),
                 color: color,
-                backgroundColor: AppColors.borderSubtle,
+                backgroundColor: AppColors.borderLight,
               ),
             ),
           ),

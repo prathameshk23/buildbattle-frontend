@@ -6,7 +6,7 @@ class PanelCard extends StatelessWidget {
   const PanelCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(16),
+    this.padding = const EdgeInsets.all(20),
     this.leftBorderAccent,
     this.onTap,
   });
@@ -22,9 +22,16 @@ class PanelCard extends StatelessWidget {
       width: double.infinity,
       padding: padding,
       decoration: BoxDecoration(
-        color: AppColors.backgroundPanel,
+        color: AppColors.backgroundCard,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.borderSubtle),
+        border: Border.all(color: AppColors.borderLight),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowCard,
+            offset: const Offset(0, 4),
+            blurRadius: 16,
+          ),
+        ],
       ),
       foregroundDecoration: leftBorderAccent == null
           ? null

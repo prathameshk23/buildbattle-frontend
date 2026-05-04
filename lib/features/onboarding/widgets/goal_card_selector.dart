@@ -22,35 +22,35 @@ class GoalCardSelector extends StatelessWidget {
     final (icon, accent, description) = switch (goal) {
       GoalType.weightLoss => (
         LucideIcons.flame,
-        AppColors.accentSaber,
+        AppColors.primaryViolet,
         'Trim the load and move with speed.',
       ),
       GoalType.weightGain => (
         LucideIcons.zap,
-        AppColors.accentStraw,
+        AppColors.accentGold,
         'Build mass for the next grand voyage.',
       ),
       GoalType.fitnessCoach => (
         LucideIcons.dumbbell,
-        AppColors.accentForce,
-        'Train with structure and steady force.',
+        AppColors.accentTeal,
+        'Train with structure and steady support.',
       ),
       GoalType.maintenance => (
         LucideIcons.compass,
-        AppColors.accentRed,
+        AppColors.error,
         'Hold balance while the seas change.',
       ),
     };
     return InkWell(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(24),
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppColors.backgroundPanel,
-          borderRadius: BorderRadius.circular(16),
+          color: AppColors.backgroundCard,
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: selected ? accent : AppColors.borderSubtle,
+            color: selected ? accent : AppColors.borderLight,
             width: selected ? 1.5 : 1,
           ),
           boxShadow: selected

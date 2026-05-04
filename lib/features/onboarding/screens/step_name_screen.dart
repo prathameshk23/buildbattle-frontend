@@ -28,9 +28,12 @@ class _StepNameScreenState extends ConsumerState<StepNameScreen> {
     return ListView(
       padding: const EdgeInsets.all(24),
       children: [
-        Text('Who are you, Traveller?', style: AppTextStyles.displayHero),
+        Text('Tell us about you.', style: AppTextStyles.displayHero),
         const SizedBox(height: 8),
-        Text('Every legend starts with a name.', style: AppTextStyles.body),
+        Text(
+          'We will personalize your dashboard and goals.',
+          style: AppTextStyles.body,
+        ),
         const SizedBox(height: 28),
         AppTextField(
           label: 'Display name',

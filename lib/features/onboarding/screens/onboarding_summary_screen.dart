@@ -23,17 +23,17 @@ class OnboardingSummaryScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(24),
       children:
           [
-            Text('Mission briefing.', style: AppTextStyles.displayHero),
+            Text('Plan summary.', style: AppTextStyles.displayHero),
             const SizedBox(height: 8),
             Text(
-              "Here's everything we know about you, soldier.",
+              'Review your health profile before you begin.',
               style: AppTextStyles.body,
             ),
             const SizedBox(height: 18),
             _SummaryTile(
               icon: LucideIcons.user,
               label: 'Name & goal',
-              value: '${profile.name} - ${profile.goalType.mission}',
+              value: '${profile.name} - ${profile.goalType.planLabel}',
             ),
             _SummaryTile(
               icon: LucideIcons.activity,
@@ -49,7 +49,7 @@ class OnboardingSummaryScreen extends ConsumerWidget {
                     children: [
                       const Icon(
                         LucideIcons.flame,
-                        color: AppColors.accentSaber,
+                        color: AppColors.primaryViolet,
                       ),
                       const SizedBox(width: 10),
                       Text(
@@ -65,17 +65,17 @@ class OnboardingSummaryScreen extends ConsumerWidget {
                       StatChip(
                         label: 'P',
                         value: '${profile.proteinGoal}g',
-                        color: AppColors.accentSaber,
+                        color: AppColors.primaryViolet,
                       ),
                       StatChip(
                         label: 'C',
                         value: '${profile.carbGoal}g',
-                        color: AppColors.accentStraw,
+                        color: AppColors.accentGold,
                       ),
                       StatChip(
                         label: 'F',
                         value: '${profile.fatGoal}g',
-                        color: AppColors.accentForce,
+                        color: AppColors.accentTeal,
                       ),
                     ],
                   ),
@@ -106,7 +106,7 @@ class OnboardingSummaryScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
             AppButton(
-              label: 'Begin your journey',
+              label: 'Start tracking',
               icon: LucideIcons.sparkles,
               onPressed: () async {
                 await ref.read(authProvider.notifier).completeOnboarding();
@@ -138,7 +138,7 @@ class _SummaryTile extends StatelessWidget {
     return PanelCard(
       child: Row(
         children: [
-          Icon(icon, color: AppColors.accentSaber),
+          Icon(icon, color: AppColors.primaryViolet),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

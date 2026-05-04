@@ -80,8 +80,8 @@ class UserProfile {
   }
 
   static UserProfile sample() => UserProfile(
-    name: 'Traveller',
-    email: 'traveller@sunny.fit',
+    name: 'Grace',
+    email: 'grace@example.com',
     goalType: GoalType.weightLoss,
     age: 28,
     sex: 'Other',

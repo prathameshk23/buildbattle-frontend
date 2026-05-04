@@ -17,7 +17,7 @@ class LoginScreen extends ConsumerStatefulWidget {
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _email = TextEditingController(text: 'traveller@sunny.fit');
+  final _email = TextEditingController(text: 'grace@example.com');
   final _password = TextEditingController(text: 'password123');
 
   @override
@@ -28,10 +28,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           padding: const EdgeInsets.all(24),
           children: [
             const SizedBox(height: 72),
-            Text('Welcome aboard.', style: AppTextStyles.displayHero),
+            Text('Welcome back.', style: AppTextStyles.displayHero),
             const SizedBox(height: 8),
             Text(
-              'Sign in to continue your mission.',
+              'Sign in to continue tracking your health.',
               style: AppTextStyles.body,
             ),
             const SizedBox(height: 32),
@@ -63,7 +63,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             const SizedBox(height: 24),
             AppButton(
-              label: 'Enter the log pose',
+              label: 'Sign in',
               icon: LucideIcons.logIn,
               onPressed: () async {
                 if (!_formKey.currentState!.validate()) return;
@@ -75,7 +75,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             ),
             const SizedBox(height: 12),
             AppButton(
-              label: 'Create new mission',
+              label: 'Create account',
               variant: AppButtonVariant.ghost,
               onPressed: () => context.go('/onboarding/name'),
             ),

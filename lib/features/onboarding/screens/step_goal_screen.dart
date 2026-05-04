@@ -15,7 +15,7 @@ class StepGoalScreen extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(24),
       children: [
-        Text('Choose your mission.', style: AppTextStyles.displayHero),
+        Text('Choose your goal.', style: AppTextStyles.displayHero),
         const SizedBox(height: 18),
         GridView.count(
           shrinkWrap: true,

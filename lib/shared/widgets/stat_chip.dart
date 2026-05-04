@@ -18,15 +18,19 @@ class StatChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      width: value == null ? 24 : null,
+      height: value == null ? 24 : null,
+      alignment: Alignment.center,
+      padding: value == null
+          ? EdgeInsets.zero
+          : const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.10),
+        color: color,
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: color.withValues(alpha: 0.5)),
       ),
       child: Text(
         value == null ? label : '$label $value',
-        style: AppTextStyles.micro.copyWith(color: AppColors.textPrimary),
+        style: AppTextStyles.micro.copyWith(color: AppColors.textOnPrimary),
       ),
     );
   }

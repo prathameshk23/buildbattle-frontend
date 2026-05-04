@@ -27,7 +27,7 @@ class CalorieRingCard extends StatelessWidget {
           GlowRing(
             value: eaten / goal,
             size: 220,
-            arcColor: over ? AppColors.accentRed : AppColors.accentSaber,
+            arcColor: over ? AppColors.error : AppColors.primaryViolet,
             label: '$eaten / $goal kcal',
             sublabel: 'logged today',
           ),
@@ -35,9 +35,7 @@ class CalorieRingCard extends StatelessWidget {
           Text(
             '${remaining.abs()} kcal ${remaining >= 0 ? 'remaining' : 'over'}',
             style: AppTextStyles.displaySub.copyWith(
-              color: remaining >= 0
-                  ? AppColors.accentStraw
-                  : AppColors.accentRed,
+              color: remaining >= 0 ? AppColors.accentGold : AppColors.error,
             ),
           ),
           Text('$burned kcal exercise offset', style: AppTextStyles.caption),

@@ -14,8 +14,10 @@ class DailyGreetingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final quotes = [...starWarsInspiredQuotes, ...onePieceInspiredQuotes];
-    final quote = quotes[Random(DateTime.now().day).nextInt(quotes.length)];
+    final quote =
+        motivationalQuotes[Random(
+          DateTime.now().day,
+        ).nextInt(motivationalQuotes.length)];
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,7 +25,7 @@ class DailyGreetingHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Good morning, $name.', style: AppTextStyles.displaySub),
+              Text('Hi, $name', style: AppTextStyles.displayHero),
               const SizedBox(height: 6),
               Text(
                 quote,

@@ -18,7 +18,7 @@ class WaterTrackerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final filled = (waterMl / 250).round().clamp(0, 8);
     return PanelCard(
-      leftBorderAccent: AppColors.accentStraw,
+      leftBorderAccent: AppColors.accentGold,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,8 +34,8 @@ class WaterTrackerCard extends StatelessWidget {
                 child: Icon(
                   LucideIcons.glassWater,
                   color: active
-                      ? AppColors.accentSaber
-                      : AppColors.borderSubtle,
+                      ? AppColors.primaryViolet
+                      : AppColors.borderLight,
                 ),
               );
             }),

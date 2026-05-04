@@ -40,19 +40,19 @@ class AppTextField extends StatelessWidget {
         prefixIcon: prefixIcon == null ? null : Icon(prefixIcon, size: 18),
         suffixIcon: suffixIcon,
         filled: true,
-        fillColor: AppColors.backgroundElevated,
-        errorStyle: AppTextStyles.caption.copyWith(color: AppColors.accentRed),
-        enabledBorder: _border(AppColors.borderSubtle, 1),
-        focusedBorder: _border(AppColors.accentSaber, 1.5),
-        errorBorder: _border(AppColors.accentRed, 1),
-        focusedErrorBorder: _border(AppColors.accentRed, 1.5),
+        fillColor: AppColors.backgroundCard,
+        errorStyle: AppTextStyles.caption.copyWith(color: AppColors.error),
+        enabledBorder: _border(AppColors.borderLight, 1),
+        focusedBorder: _border(AppColors.borderFocus, 1.5),
+        errorBorder: _border(AppColors.error, 1),
+        focusedErrorBorder: _border(AppColors.error, 1.5),
       ),
     );
   }
 
   OutlineInputBorder _border(Color color, double width) {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(8),
       borderSide: BorderSide(color: color, width: width),
     );
   }

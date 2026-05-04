@@ -20,7 +20,7 @@ class StepBiometricsScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: Text(
-                'Calibrate your vessel.',
+                'Set your baseline.',
                 style: AppTextStyles.displayHero,
               ),
             ),
@@ -31,8 +31,8 @@ class StepBiometricsScreen extends ConsumerWidget {
               ],
               selected: const {true},
               style: SegmentedButton.styleFrom(
-                selectedForegroundColor: AppColors.backgroundDeep,
-                selectedBackgroundColor: AppColors.accentSaber,
+                selectedForegroundColor: AppColors.pageBackground,
+                selectedBackgroundColor: AppColors.primaryViolet,
               ),
               onSelectionChanged: (_) {},
             ),
@@ -94,14 +94,14 @@ class StepBiometricsScreen extends ConsumerWidget {
                     child: ChoiceChip(
                       label: Text(level),
                       selected: selected,
-                      selectedColor: AppColors.accentSaber.withValues(
+                      selectedColor: AppColors.primaryViolet.withValues(
                         alpha: 0.22,
                       ),
-                      backgroundColor: AppColors.backgroundPanel,
+                      backgroundColor: AppColors.backgroundCard,
                       side: BorderSide(
                         color: selected
-                            ? AppColors.accentSaber
-                            : AppColors.borderSubtle,
+                            ? AppColors.primaryViolet
+                            : AppColors.borderLight,
                       ),
                       onSelected: (_) =>
                           notifier.setBiometrics(activityLevel: level),

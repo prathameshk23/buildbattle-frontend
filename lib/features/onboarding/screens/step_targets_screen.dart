@@ -19,7 +19,7 @@ class StepTargetsScreen extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(24),
       children: [
-        Text('Set your coordinates.', style: AppTextStyles.displayHero),
+        Text('Set your targets.', style: AppTextStyles.displayHero),
         const SizedBox(height: 18),
         _TargetTile(
           label: 'Target weight',
@@ -42,17 +42,17 @@ class StepTargetsScreen extends ConsumerWidget {
               _MacroSlider(
                 label: 'Protein',
                 value: profile.proteinGoal / 250,
-                color: AppColors.accentSaber,
+                color: AppColors.primaryViolet,
               ),
               _MacroSlider(
                 label: 'Carbs',
                 value: profile.carbGoal / 350,
-                color: AppColors.accentStraw,
+                color: AppColors.accentGold,
               ),
               _MacroSlider(
                 label: 'Fat',
                 value: profile.fatGoal / 120,
-                color: AppColors.accentForce,
+                color: AppColors.accentTeal,
               ),
               Wrap(
                 spacing: 8,
@@ -60,17 +60,17 @@ class StepTargetsScreen extends ConsumerWidget {
                   StatChip(
                     label: 'P',
                     value: '${profile.proteinGoal}g',
-                    color: AppColors.accentSaber,
+                    color: AppColors.primaryViolet,
                   ),
                   StatChip(
                     label: 'C',
                     value: '${profile.carbGoal}g',
-                    color: AppColors.accentStraw,
+                    color: AppColors.accentGold,
                   ),
                   StatChip(
                     label: 'F',
                     value: '${profile.fatGoal}g',
-                    color: AppColors.accentForce,
+                    color: AppColors.accentTeal,
                   ),
                 ],
               ),
@@ -116,7 +116,7 @@ class _TargetTile extends StatelessWidget {
     return PanelCard(
       child: Row(
         children: [
-          Icon(icon, color: AppColors.accentSaber),
+          Icon(icon, color: AppColors.primaryViolet),
           const SizedBox(width: 12),
           Expanded(child: Text(label, style: AppTextStyles.caption)),
           Text(value, style: AppTextStyles.labelStrong),
@@ -146,7 +146,7 @@ class _MacroSlider extends StatelessWidget {
             data: SliderTheme.of(context).copyWith(
               activeTrackColor: color,
               thumbColor: color,
-              inactiveTrackColor: AppColors.borderSubtle,
+              inactiveTrackColor: AppColors.borderLight,
             ),
             child: Slider(value: value.clamp(0, 1), onChanged: (_) {}),
           ),
