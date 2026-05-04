@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dio/dio.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import '../../../core/network/dio_client.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../shared/models/food_item.dart';
@@ -54,10 +56,12 @@ class _BarcodeScannerSheetState extends ConsumerState<BarcodeScannerSheet> {
                   ),
                 ),
                 if (_busy)
-                  const Center(
+                  Center(
                     child: DecoratedBox(
-                      decoration: BoxDecoration(color: Colors.black45),
-                      child: Padding(
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryViolet.withValues(alpha: 0.22),
+                      ),
+                      child: const Padding(
                         padding: EdgeInsets.all(14),
                         child: CircularProgressIndicator(),
                       ),
@@ -130,11 +134,18 @@ class _BarcodeScannerSheetState extends ConsumerState<BarcodeScannerSheet> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text(error.toString())));
+        ).showSnackBar(SnackBar(content: Text(_errorMessage(error))));
         await _controller.start();
       }
     } finally {
       if (mounted) setState(() => _busy = false);
     }
   }
+}
+
+String _errorMessage(Object error) {
+  if (error is DioException && error.error is AppException) {
+    return (error.error as AppException).message;
+  }
+  return error.toString();
 }

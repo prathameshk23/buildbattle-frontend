@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/network/api_endpoints.dart';
 import '../../../core/network/dio_client.dart';
+import '../../dashboard/providers/dashboard_provider.dart';
 import '../../../shared/models/diary_entry.dart';
 import '../../../shared/models/food_item.dart';
 
@@ -68,6 +69,7 @@ class DiaryNotifier extends AsyncNotifier<List<DiaryEntry>> {
       },
     );
     state = AsyncData(await _load());
+    ref.invalidate(dashboardProvider);
   }
 
   Future<void> remove(DiaryEntry entry) async {
@@ -75,6 +77,7 @@ class DiaryNotifier extends AsyncNotifier<List<DiaryEntry>> {
     final dio = ref.read(dioClientProvider).dio;
     await dio.delete('${ApiEndpoints.diary}/${entry.id}');
     state = AsyncData(await _load());
+    ref.invalidate(dashboardProvider);
   }
 
   Future<FoodItem> scanFood({

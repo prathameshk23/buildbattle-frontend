@@ -4,39 +4,49 @@ class AppColors {
   const AppColors._();
 
   static const backgroundPrimary = Color(0xFFFFFFFF);
-  static const backgroundSoft = Color(0xFFF1F6F4);
+  static const backgroundSoft = Color(0xFFF5F5FF);
   static const backgroundCard = Color(0xFFFFFFFF);
-  static const backgroundElevated = Color(0xFFF7FAF8);
-  static const primaryViolet = Color(0xFF188A6B);
-  static const primaryVioletLight = Color(0xFF3DBA91);
-  static const primaryVioletPale = Color(0xFFDDF4EC);
-  static const gradientStart = Color(0xFF188A6B);
-  static const gradientEnd = Color(0xFF1F6F8B);
-  static const accentCyan = Color(0xFF2EA7A0);
-  static const accentBlue = Color(0xFF1F6F8B);
-  static const accentTeal = Color(0xFF34B27B);
-  static const accentOrange = Color(0xFFE7653B);
-  static const accentGold = Color(0xFFE2A72E);
-  static const cardCalories = Color(0xFF188A6B);
-  static const cardWeight = Color(0xFFE7653B);
-  static const cardWater = Color(0xFF1F6F8B);
-  static const cardSteps = Color(0xFF243B53);
-  static const textPrimary = Color(0xFF18201D);
-  static const textSecondary = Color(0xFF65746E);
-  static const textMuted = Color(0xFF9AA8A2);
+  static const backgroundElevated = Color(0xFFF8F8FF);
+  static const primaryViolet = Color(0xFF7C6FF7);
+  static const primaryVioletLight = Color(0xFF9B8FFF);
+  static const primaryVioletPale = Color(0xFFECEAFF);
+  static const primaryVioletDark = Color(0xFF6A5FE0);
+  static const gradientStart = Color(0xFF8B7FFF);
+  static const gradientEnd = Color(0xFF6A5FF0);
+  static const accentCyan = Color(0xFF26C6DA);
+  static const accentBlue = Color(0xFF4A90D9);
+  static const accentBlueLight = Color(0xFF64B5F6);
+  static const accentTeal = Color(0xFF26A69A);
+  static const accentOrange = Color(0xFFFF7043);
+  static const accentGold = Color(0xFFFFB300);
+  static const cardCalories = Color(0xFF8B7FFF);
+  static const cardWeight = Color(0xFF9B8FFF);
+  static const cardWater = Color(0xFF4A90D9);
+  static const cardSteps = Color(0xFF2D3561);
+  static const surfacePremiumBlue = Color(0xFF3A7BD5);
+  static const surfaceInsightDark = Color(0xFF2D3561);
+  static const textPrimary = Color(0xFF1A1D2E);
+  static const textSecondary = Color(0xFF8A90B4);
+  static const textMuted = Color(0xFFB8BCCE);
   static const textOnPrimary = Color(0xFFFFFFFF);
   static const textAccent = Color(0xFF7C6FF7);
-  static const textLink = Color(0xFF4A90D9);
-  static const borderLight = Color(0xFFEEEFF5);
-  static const borderMedium = Color(0xFFD8DAE8);
+  static const textAccentCyan = Color(0xFF26C6DA);
+  static const textWarning = Color(0xFFFF7043);
+  static const textLink = Color(0xFF7C6FF7);
+  static const borderLight = Color(0xFFEEEFF8);
+  static const borderMedium = Color(0xFFE0E2F0);
   static const borderFocus = Color(0xFF7C6FF7);
+  static const borderSelected = Color(0xFF7C6FF7);
   static const success = Color(0xFF34C77B);
   static const warning = Color(0xFFFFB300);
   static const error = Color(0xFFFF3B5C);
+  static const rating = Color(0xFFFFD700);
   static const stepActive = Color(0xFF7C6FF7);
   static const stepComplete = Color(0xFF7C6FF7);
-  static const stepInactive = Color(0xFFE0E0F0);
-  static const pageBackground = Color(0xFFEFF4F1);
+  static const stepInactive = Color(0xFFE0E2F0);
+  static const toggleActive = Color(0xFF7C6FF7);
+  static const toggleInactive = Color(0xFFDDDEEA);
+  static const pageBackground = Color(0xFFF0F1FA);
 
   static const gradientCta = LinearGradient(
     begin: Alignment.centerLeft,
@@ -50,19 +60,45 @@ class AppColors {
     colors: [gradientStart, gradientEnd],
   );
 
+  static const gradientWeight = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [primaryVioletLight, primaryViolet],
+  );
+
   static const gradientWater = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [accentBlue, Color(0xFF357ABD)],
+    colors: [accentBlue, Color(0xFF2979CC)],
   );
 
   static const gradientSteps = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [cardSteps, Color(0xFF152638)],
+    colors: [cardSteps, Color(0xFF1A2040)],
+  );
+
+  static const gradientHydrationBar = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [accentCyan, primaryViolet],
+  );
+
+  static const gradientReadyScreen = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [primaryVioletLight, gradientEnd],
+  );
+
+  static const gradientPremium = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [surfacePremiumBlue, Color(0xFF2563C4)],
   );
 
   static Color get shadowCard => primaryViolet.withValues(alpha: 0.10);
   static Color get shadowElevated => primaryViolet.withValues(alpha: 0.14);
-  static Color get shadowButton => primaryViolet.withValues(alpha: 0.35);
+  static Color get shadowButton => primaryViolet.withValues(alpha: 0.38);
+  static const shadowSubtle = Color(0x0D000000);
+  static Color get shadowCardDark => cardSteps.withValues(alpha: 0.30);
 }

@@ -49,7 +49,7 @@ class _AppButtonState extends State<AppButton> {
         : AppColors.primaryViolet;
     final fill = isGhost || isDanger || isPrimary
         ? Colors.transparent
-        : AppColors.backgroundCard;
+        : AppColors.primaryVioletPale;
 
     return Listener(
       onPointerDown: (_) => setState(() => _pressed = true),
@@ -85,7 +85,7 @@ class _AppButtonState extends State<AppButton> {
               label: Text(widget.label),
               style: TextButton.styleFrom(
                 foregroundColor: foreground,
-                textStyle: AppTextStyles.labelStrong,
+              textStyle: AppTextStyles.labelButton.copyWith(color: foreground),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),

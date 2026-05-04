@@ -27,9 +27,9 @@ class PanelCard extends StatelessWidget {
         border: Border.all(color: AppColors.borderLight),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadowCard,
-            offset: const Offset(0, 4),
-            blurRadius: 16,
+            color: AppColors.shadowSubtle,
+            offset: const Offset(0, 2),
+            blurRadius: 8,
           ),
         ],
       ),

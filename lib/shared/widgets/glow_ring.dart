@@ -29,29 +29,39 @@ class GlowRing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.square(
-      dimension: size,
-      child: CustomPaint(
-        painter: _GlowRingPainter(
-          value: value.clamp(0, 1.2),
-          trackColor: trackColor,
-          arcColor: arcColor,
-          glowColor: glowColor ?? arcColor.withValues(alpha: 0.28),
-          strokeWidth: strokeWidth,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                label,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.labelStrong,
-              ),
-              const SizedBox(height: 4),
-              Text(sublabel, style: AppTextStyles.caption),
-            ],
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: value.clamp(0, 1.2)),
+      duration: const Duration(milliseconds: 900),
+      curve: Curves.easeOutCubic,
+      builder: (context, animatedValue, child) {
+        return SizedBox.square(
+          dimension: size,
+          child: CustomPaint(
+            painter: _GlowRingPainter(
+              value: animatedValue,
+              trackColor: trackColor,
+              arcColor: arcColor,
+              glowColor: glowColor ?? arcColor.withValues(alpha: 0.14),
+              strokeWidth: strokeWidth,
+            ),
+            child: child,
           ),
+        );
+      },
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              style: AppTextStyles.labelStrong.copyWith(
+                color: AppColors.textAccent,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(sublabel, style: AppTextStyles.caption),
+          ],
         ),
       ),
     );
@@ -85,19 +95,18 @@ class _GlowRingPainter extends CustomPainter {
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
       ..color = trackColor;
-    final glowPaint = Paint()
+    final softArcPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth + 4
       ..strokeCap = StrokeCap.round
-      ..color = glowColor
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12);
+      ..color = glowColor;
     final arcPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
       ..color = arcColor;
     canvas.drawArc(arcRect, 0, math.pi * 2, false, trackPaint);
-    canvas.drawArc(arcRect, start, sweep, false, glowPaint);
+    canvas.drawArc(arcRect, start, sweep, false, softArcPaint);
     canvas.drawArc(arcRect, start, sweep, false, arcPaint);
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/network/api_endpoints.dart';
 import '../../../core/network/dio_client.dart';
@@ -35,6 +36,8 @@ class DashboardData {
 final dashboardProvider = FutureProvider<DashboardData>((ref) async {
   final dio = ref.read(dioClientProvider).dio;
   final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  final prefs = await SharedPreferences.getInstance();
+  final localSteps = prefs.getInt('steps_$today');
   final responses = await Future.wait([
     dio.get(ApiEndpoints.diary, queryParameters: {'date': today}),
     dio.get(ApiEndpoints.goals),
@@ -75,8 +78,36 @@ final dashboardProvider = FutureProvider<DashboardData>((ref) async {
     fat: totals['fat_g']!,
     waterMl: readInt(water, 'total_ml'),
     waterGoalMl: readInt(goals, 'water_ml'),
-    steps: readInt(steps, 'count'),
+    steps: localSteps ?? readInt(steps, 'count'),
     stepGoal: readInt(goals, 'steps'),
     name: profile['display_name']?.toString() ?? 'Athlete',
   );
 });
+
+final dashboardActionsProvider = Provider<DashboardActions>((ref) {
+  return DashboardActions(ref);
+});
+
+class DashboardActions {
+  const DashboardActions(this.ref);
+
+  final Ref ref;
+
+  Future<bool> updateTodaySteps(int count) async {
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('steps_$today', count);
+    ref.invalidate(dashboardProvider);
+
+    try {
+      await ref.read(dioClientProvider).dio.post(
+        ApiEndpoints.steps,
+        data: {'date': today, 'count': count},
+      );
+      ref.invalidate(dashboardProvider);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+}

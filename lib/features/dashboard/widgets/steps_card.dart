@@ -6,9 +6,15 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../../shared/widgets/panel_card.dart';
 
 class StepsCard extends StatelessWidget {
-  const StepsCard({super.key, required this.steps, required this.goal});
+  const StepsCard({
+    super.key,
+    required this.steps,
+    required this.goal,
+    required this.onEdit,
+  });
   final int steps;
   final int goal;
+  final VoidCallback onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +27,8 @@ class StepsCard extends StatelessWidget {
               Text('Steps', style: AppTextStyles.displaySub),
               const Spacer(),
               IconButton(
-                onPressed: () {},
-                icon: const Icon(LucideIcons.refreshCw, size: 18),
+                onPressed: onEdit,
+                icon: const Icon(LucideIcons.plus, size: 18),
               ),
             ],
           ),

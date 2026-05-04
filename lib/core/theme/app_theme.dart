@@ -18,9 +18,25 @@ class AppTheme {
         tertiary: AppColors.accentGold,
         error: AppColors.error,
       ),
-      textTheme: GoogleFonts.interTextTheme(base.textTheme).apply(
+      textTheme: GoogleFonts.nunitoTextTheme(base.textTheme).apply(
         bodyColor: AppColors.textPrimary,
         displayColor: AppColors.textPrimary,
+      ),
+      cardTheme: CardThemeData(
+        color: AppColors.backgroundCard,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.backgroundSoft,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+      ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: AppColors.primaryViolet,
+        unselectedLabelColor: AppColors.textMuted,
+        indicatorColor: AppColors.primaryViolet,
+        labelStyle: AppTextStyles.captionMedium,
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.backgroundPrimary,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
+import '../../../core/network/dio_client.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../shared/models/food_item.dart';
@@ -186,13 +188,20 @@ class _AiFoodScanState extends ConsumerState<_AiFoodScan> {
     } catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error.toString())),
+          SnackBar(content: Text(_errorMessage(error))),
         );
       }
     } finally {
       if (mounted) setState(() => _busy = false);
     }
   }
+}
+
+String _errorMessage(Object error) {
+  if (error is DioException && error.error is AppException) {
+    return (error.error as AppException).message;
+  }
+  return error.toString();
 }
 
 class _FoodCard extends StatelessWidget {
